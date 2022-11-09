@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateMovieDTO {
     private String title;
+    private Long directorId;
 }

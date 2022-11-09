@@ -18,10 +18,12 @@ public class MoviesResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
+    public Response getAll(
+            @QueryParam("directorId") Long directorId
+    ) {
         return Response
                 .ok(
-                        movieService.findAll().stream().map(MovieEntity::toDto)
+                        movieService.findAll(directorId).stream().map(MovieEntity::toDto)
                 )
                 .build();
     }
@@ -33,7 +35,7 @@ public class MoviesResource {
     public Response create(CreateMovieDTO createMovieDTO) {
         return Response
                 .ok(
-                        movieService.create(createMovieDTO.getTitle())
+                        movieService.create(createMovieDTO.getTitle(), createMovieDTO.getDirectorId())
                 )
                 .build();
     }
@@ -47,7 +49,7 @@ public class MoviesResource {
             CreateMovieDTO createMovieDTO
     ) {
         return Response.ok(
-                movieService.update(movieId, createMovieDTO.getTitle())
+                movieService.update(movieId, createMovieDTO.getTitle(), createMovieDTO.getDirectorId())
         ).build();
     }
 
