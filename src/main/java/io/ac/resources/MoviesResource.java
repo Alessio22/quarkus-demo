@@ -31,6 +31,16 @@ public class MoviesResource {
                 .build();
     }
 
+    @GET
+    @RolesAllowed({"ADMIN", "USER"})
+    @Path("{movieId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOne(
+            @PathParam("movieId") Long movieId
+    ) {
+        return Response.ok(movieService.findById(movieId).toDto()).build();
+    }
+
     @POST
     @RolesAllowed({"ADMIN"})
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,7 +48,7 @@ public class MoviesResource {
     public Response create(CreateMovieDTO createMovieDTO) {
         return Response
                 .ok(
-                        movieService.create(createMovieDTO.getTitle(), createMovieDTO.getDirectorId())
+                        movieService.create(createMovieDTO.getTitle(), createMovieDTO.getDirectorId()).toDto()
                 )
                 .build();
     }
@@ -53,7 +63,7 @@ public class MoviesResource {
             CreateMovieDTO createMovieDTO
     ) {
         return Response.ok(
-                movieService.update(movieId, createMovieDTO.getTitle(), createMovieDTO.getDirectorId())
+                movieService.update(movieId, createMovieDTO.getTitle(), createMovieDTO.getDirectorId()).toDto()
         ).build();
     }
 

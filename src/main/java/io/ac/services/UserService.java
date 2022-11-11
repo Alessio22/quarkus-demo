@@ -5,10 +5,10 @@ import io.ac.dtos.LoginRequestDTO;
 import io.ac.entities.UserEntity;
 import org.jboss.logging.Logger;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
+@ApplicationScoped
 public class UserService {
     private Logger LOGGER = Logger.getLogger(UserService.class);
 

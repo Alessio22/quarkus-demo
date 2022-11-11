@@ -6,15 +6,15 @@
 #
 # Before building the container image run:
 #
-# ./mvnw package -Pnative
+# ./mvnw package -Dnative -Dquarkus.native.container-build=true
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/quarkus-demo .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus-demo .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/quarkus-demo
+# docker run -i --rm -p 8080:8080 --network=quarkus-test -e DATASOURCE_URL=jdbc:postgresql://postgres:5432/quarkus-demo quarkus-demo
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:1.0
@@ -23,6 +23,7 @@ RUN chown 1001 /work \
     && chmod "g+rwX" /work \
     && chown 1001:root /work
 COPY --chown=1001:root target/*-runner /work/application
+ADD jwt /work/jwt
 
 EXPOSE 8080
 USER 1001
