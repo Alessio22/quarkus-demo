@@ -1,4 +1,7 @@
-package io.ac;
+package io.ac.services;
+
+import io.ac.entities.DirectorEntity;
+import io.ac.entities.MovieEntity;
 
 import javax.inject.Singleton;
 import javax.transaction.Transactional;

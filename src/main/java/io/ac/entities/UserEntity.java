@@ -1,4 +1,4 @@
-package io.ac;
+package io.ac.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.*;

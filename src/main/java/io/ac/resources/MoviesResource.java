@@ -1,15 +1,15 @@
-package io.ac;
+package io.ac.resources;
 
+import io.ac.dtos.CreateMovieDTO;
+import io.ac.entities.MovieEntity;
+import io.ac.services.MovieService;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URI;
 
 @Path("movies")
 @Tag(name = "Movie resource", description = "A simple resource")

@@ -1,5 +1,6 @@
-package io.ac;
+package io.ac.entities;
 
+import io.ac.dtos.MovieDTO;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package io.ac;
+package io.ac.dtos;
 
 import lombok.*;
 

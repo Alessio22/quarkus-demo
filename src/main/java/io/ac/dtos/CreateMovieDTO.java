@@ -1,4 +1,4 @@
-package io.ac;
+package io.ac.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieDTO {
-    private Long id;
+public class CreateMovieDTO {
     private String title;
-    private DirectorDTO director;
+    private Long directorId;
 }

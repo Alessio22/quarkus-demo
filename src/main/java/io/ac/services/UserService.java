@@ -1,4 +1,7 @@
-package io.ac;
+package io.ac.services;
+
+import io.ac.dtos.LoginRequestDTO;
+import io.ac.entities.UserEntity;
 
 import javax.inject.Singleton;
 

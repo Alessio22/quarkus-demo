@@ -1,6 +1,11 @@
-package io.ac;
+package io.ac.resources;
 
+import io.ac.dtos.LoginRequestDTO;
+import io.ac.dtos.LoginResponseDTO;
+import io.ac.entities.UserEntity;
+import io.ac.services.UserService;
 import io.smallrye.jwt.build.Jwt;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.annotation.security.PermitAll;
@@ -20,22 +25,30 @@ public class AuthResource {
     @Inject
     UserService userService;
 
+    @ConfigProperty(name = "quarkus-demo.jwt.expiredIn", defaultValue = "3600")
+    String expiredIn;
+
     @POST
     @PermitAll
     @Path(("login"))
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(LoginRequestDTO loginRequestDTO) {
         UserEntity userEntity = userService.findByUsernameAndPassword(loginRequestDTO);
         if (Objects.isNull(userEntity)) {
             return Response.status(401).build();
         }
-        String jwt = Jwt.issuer("quarkus-demo")
+        String accessToken = Jwt.issuer("quarkus-demo")
                 .subject(userEntity.getId().toString())
                 .groups(userEntity.getRole().name())
-                .expiresAt(System.currentTimeMillis() + 3600)
+                .expiresAt(System.currentTimeMillis() + Integer.parseInt(expiredIn))
                 .sign();
-        return Response.ok(jwt).build();
+        return Response.ok(
+                LoginResponseDTO.builder()
+                        .accessToken(accessToken)
+                        .expiredIn(Integer.parseInt(expiredIn))
+                        .build()
+        ).build();
     }
 
 }
