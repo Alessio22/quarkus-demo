@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity extends PanacheEntityBase {
+public class UserEntity {
     @Id
     @GeneratedValue
     public Long id;
@@ -21,7 +21,4 @@ public class UserEntity extends PanacheEntityBase {
     @Enumerated
     private RoleEnum role;
 
-    public static UserEntity findByUsernameAndPassword(String username, String password) {
-        return find("username = ?1 and password = ?2", username, password).firstResult();
-    }
 }
