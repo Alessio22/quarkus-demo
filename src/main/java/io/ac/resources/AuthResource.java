@@ -36,7 +36,9 @@ public class AuthResource {
     public Response create(LoginRequestDTO loginRequestDTO) {
         UserEntity userEntity = userService.findByUsernameAndPassword(loginRequestDTO);
         if (Objects.isNull(userEntity)) {
-            return Response.status(401).build();
+            return Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .build();
         }
         String accessToken = Jwt.issuer("quarkus-demo")
                 .subject(userEntity.getId().toString())
