@@ -1,15 +1,15 @@
 package io.ac;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-@ApplicationScoped
+@Singleton
 public class MovieService {
 
     public List<MovieEntity> findAll(Long directorId) {
-        if(Objects.nonNull(directorId)) {
+        if (Objects.nonNull(directorId)) {
             return MovieEntity.findAllByDirectorId(directorId);
         }
         return MovieEntity.listAll();

@@ -2,6 +2,8 @@ package io.ac;
 
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -17,6 +19,7 @@ public class MoviesResource {
     MovieService movieService;
 
     @GET
+    @RolesAllowed({"ADMIN", "USER"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(
             @QueryParam("directorId") Long directorId
@@ -28,8 +31,8 @@ public class MoviesResource {
                 .build();
     }
 
-    @Transactional
     @POST
+    @RolesAllowed({"ADMIN"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(CreateMovieDTO createMovieDTO) {
@@ -41,6 +44,7 @@ public class MoviesResource {
     }
 
     @PUT
+    @RolesAllowed({"ADMIN"})
     @Path("{movieId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -54,12 +58,13 @@ public class MoviesResource {
     }
 
     @DELETE
+    @RolesAllowed({"ADMIN"})
     @Path("{movieId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(
             @PathParam("movieId") Long movieId
     ) {
         movieService.delete(movieId);
-        return Response.ok().build();
+        return Response.noContent().build();
     }
 }
