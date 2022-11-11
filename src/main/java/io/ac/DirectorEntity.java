@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Setter
 @Getter
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "directors")
 public class DirectorEntity extends PanacheEntity {
     private String firstname;
     private String lastname;
